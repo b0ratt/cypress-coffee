@@ -11,6 +11,7 @@ describe('SEARCH', () => {
 	beforeEach('Login and navigate to search page', () => {
 		cy.setCookie('session-username', Cypress.env('LOGIN'));
 		cy.visit('/browse.html');
+		searchBar.registerSearchRequest();
 	});
 
 	it('[SEARCH-1] Should search and filter products', () => {
@@ -24,17 +25,14 @@ describe('SEARCH', () => {
 				value: '500-1000',
 			},
 		];
-		searchBar
-			.registerSearchRequest()
-			.clickSearchBtn()
-			.waitForSearchResponse()
-			.assertSearchSkeletonNotExist();
+
+		searchBar.clickSearchBtn().waitForSearchResponse().assertSearchSkeletonNotExist();
 
 		productCategories.forEach((item) => {
 			const { categoryName, value } = item;
 
 			searchFilter
-				.assertProductsCategoryVisible(categoryName)
+				.assertProductsCategoryVisible()
 				.registerFilterRequest(value, categoryName)
 				.selectFilterOption(categoryName, value)
 				.waitForFilterResponse(categoryName);

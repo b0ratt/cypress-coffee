@@ -22,7 +22,7 @@ export class SearchFilter {
 	}
 
 	selectFilterOption(filterName: string, value: string): this {
-		this.getFilterBtn(filterName).click();
+		this.getFilterBtn().contains(filterName).click();
 		this.getFilterDropdown().within(() => {
 			this.getFilterDropdownItem().contains(value).click();
 		});
@@ -42,8 +42,8 @@ export class SearchFilter {
 		return cy.dataCy('category');
 	}
 
-	private getFilterBtn(filterName: string = ''): Chainable {
-		return cy.dataCy(`filter_btn:contains(${filterName})`);
+	private getFilterBtn(): Chainable {
+		return cy.dataCy('filter_btn');
 	}
 
 	private getFilterDropdown(): Chainable {
