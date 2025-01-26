@@ -19,7 +19,7 @@ export class ProductsCatalog {
 			this.getProductItem().within(() => {
 				this.getProductCategory()
 					.contains(categoryName)
-					.siblings('.category_label')
+					.siblings('.category_labe')
 					.contains(`: ${value}`);
 			});
 		});
